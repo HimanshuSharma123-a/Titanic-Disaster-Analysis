@@ -32,3 +32,11 @@ The dataset is loaded using Pandas for further exploration and manipulation.
 import pandas as pd
 data = pd.read_csv('titanic.csv')
 
+### 2. **Initial Exploration**
+A basic inspection of the data is performed to understand its structure and identify any potential issues such as missing values or incorrect data types.
+
+```python
+data.head()
+data.info()
+
+
