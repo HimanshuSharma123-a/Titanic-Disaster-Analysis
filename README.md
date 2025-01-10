@@ -32,11 +32,57 @@ The dataset is loaded using Pandas for further exploration and manipulation.
 import pandas as pd
 data = pd.read_csv('titanic.csv')
 
-### 2. **Initial Exploration**
+2. Initial Exploration
+
 A basic inspection of the data is performed to understand its structure and identify any potential issues such as missing values or incorrect data types.
 
-```python
 data.head()
+data.info()
+
+3. Handling Missing Values
+
+Missing values in columns such as Age and Embarked are identified. The missing values are then filled with appropriate strategies (e.g., filling numerical columns with the mean and categorical columns with the mode).
+
+data['Age'] = data['Age'].fillna(data['Age'].mean())
+data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])
+4. Removing Duplicates
+Duplicate rows are checked and removed to ensure data integrity.
+python
+Copy code
+data = data.drop_duplicates()
+5. Feature Engineering
+New features are created, such as FamilySize, which combines SibSp and Parch to represent the total number of family members traveling with the passenger.
+python
+Copy code
+data['FamilySize'] = data['SibSp'] + data['Parch'] + 1
+6. Handling Categorical Data
+Categorical columns like Sex and Embarked are encoded numerically for easier analysis and model compatibility.
+python
+Copy code
+data['Sex'] = data['Sex'].map({'male': 0, 'female': 1})
+data['Embarked'] = data['Embarked'].map({'C': 0, 'Q': 1, 'S': 2})
+7. Outlier Detection and Removal
+Outliers in the Fare column are identified using the Interquartile Range (IQR) method and removed to avoid skewed analysis.
+python
+Copy code
+Q1 = data['Fare'].quantile(0.25)
+Q3 = data['Fare'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+data = data[(data['Fare'] >= lower_bound) & (data['Fare'] <= upper_bound)]
+8. Data Scaling
+Some features, like Age and Fare, are normalized or scaled to ensure that they are on a comparable scale.
+python
+Copy code
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+data[['Age', 'Fare']] = scaler.fit_transform(data[['Age', 'Fare']])
+9. Final Data Check
+After performing all cleaning steps, a final check is made to ensure that there are no remaining missing values or issues.
+python
+Copy code
+data.isnull().sum()
 data.info()
 
 
