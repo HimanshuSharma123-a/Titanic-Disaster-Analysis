@@ -91,6 +91,9 @@ After performing all cleaning steps, a final check is made to ensure that there 
 data.isnull().sum()
 data.info()
 
-##This project demonstrates the importance of data cleaning in preparing datasets for analysis. Data cleaning involves multiple steps such as handling missing values, removing duplicates, encoding categorical variables, and transforming features, all of which contribute to ensuring the dataset is in a usable form for machine learning models.
+#This project demonstrates the importance of data cleaning in preparing datasets for analysis.
+Data cleaning involves multiple steps such as handling missing values, removing duplicates,
+encoding categorical variables, and transforming features,
+all of which contribute to ensuring the dataset is in a usable form for machine learning models.
 
 
